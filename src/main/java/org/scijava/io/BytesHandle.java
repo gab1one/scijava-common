@@ -116,6 +116,18 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 		bytes().position((int) pos);
 	}
 
+	@Override
+	public boolean isReadable() {
+		return true;
+	}
+
+	@Override
+	public boolean isWritable() {
+		// NB: Actually, some ByteBuffers are read-only.
+		// But sadly there is no API for determining this.
+		return true;
+	}
+
 	// -- DataInput methods --
 
 	@Override
