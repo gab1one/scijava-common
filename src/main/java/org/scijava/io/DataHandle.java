@@ -432,10 +432,10 @@ public interface DataHandle<L extends Location> extends WrapperPlugin<L>,
 	 * @throws IOException - if an I/O error occurs.
 	 */
 	default long skip(final long n) throws IOException {
-		final long skipped = available(n);
-		if (skipped < 0) return 0;
-		seek(offset() + skipped);
-		return skipped;
+		final long skip = available(n);
+		if (skip <= 0) return 0;
+		seek(offset() + skip);
+		return skip;
 	}
 
 	// -- DataInput methods --
@@ -461,10 +461,10 @@ public interface DataHandle<L extends Location> extends WrapperPlugin<L>,
 
 	@Override
 	default int skipBytes(final int n) throws IOException {
-		final int skipped = (int) available(n);
-		if (skipped < 0) return 0;
-		seek(offset() + skipped);
-		return skipped;
+		final int skip = (int) available(n);
+		if (skip <= 0) return 0;
+		seek(offset() + skip);
+		return skip;
 	}
 
 	@Override
