@@ -51,7 +51,7 @@ public class FileLocation extends AbstractLocation {
 	public FileLocation(final String path) {
 		this(new File(path));
 	}
-	
+
 	public FileLocation(final URI path) {
 		this(new File(path));
 	}
@@ -68,6 +68,11 @@ public class FileLocation extends AbstractLocation {
 	@Override
 	public URI getURI() {
 		return getFile().toURI();
+	}
+
+	@Override
+	public String getName() {
+		return file.getName();
 	}
 
 }
