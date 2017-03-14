@@ -31,6 +31,11 @@
 
 package org.scijava.io;
 
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.ByteOrder;
 
 import org.scijava.plugin.AbstractWrapperPlugin;
@@ -48,6 +53,7 @@ public abstract class AbstractDataHandle<L extends Location> extends
 
 	private ByteOrder order = ByteOrder.BIG_ENDIAN;
 	private String encoding = "UTF-8";
+	private Method utfMethod = null;
 
 	// -- DataHandle methods --
 
@@ -69,6 +75,25 @@ public abstract class AbstractDataHandle<L extends Location> extends
 	@Override
 	public void setEncoding(final String encoding) {
 		this.encoding = encoding;
+	}
+
+	@Override
+	public void writeUTF(String str) throws IOException {
+		// HACK: Strangely, DataOutputStream.writeUTF(String, DataOutput)
+		// has package-private access. We work around it via reflection.
+		try {
+			if (utfMethod == null) {
+				utfMethod = DataOutputStream.class.getDeclaredMethod("writeUTF",
+					String.class, DataOutput.class);
+				utfMethod.setAccessible(true);
+			}
+			utfMethod.invoke(null, str, this);
+		}
+		catch (final NoSuchMethodException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException exc)
+		{
+			throw new IOException(exc);
+		}
 	}
 
 }

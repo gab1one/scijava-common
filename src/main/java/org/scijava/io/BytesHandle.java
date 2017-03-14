@@ -231,26 +231,31 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 	public void write(final byte[] b, final int off, final int len)
 		throws IOException
 	{
-		validateLength(len);
+		ensureWritable(len);
 		bytes().put(b, off, len);
 	}
 
 	@Override
 	public void write(final int b) throws IOException {
-		validateLength(1);
+		writeByte(b);
+	}
+
+	@Override
+	public void writeByte(final int b) throws IOException {
+		ensureWritable(1);
 		bytes().put((byte) b);
 	}
 
 	@Override
 	public void writeChar(final int v) throws IOException {
-		validateLength(2);
+		ensureWritable(2);
 		bytes().putChar((char) v);
 	}
 
 	@Override
 	public void writeChars(final String s) throws IOException {
 		final int len = 2 * s.length();
-		validateLength(len);
+		ensureWritable(len);
 		final char[] c = s.toCharArray();
 		for (int i = 0; i < c.length; i++) {
 			writeChar(c[i]);
@@ -259,31 +264,31 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public void writeDouble(final double v) throws IOException {
-		validateLength(8);
+		ensureWritable(8);
 		bytes().putDouble(v);
 	}
 
 	@Override
 	public void writeFloat(final float v) throws IOException {
-		validateLength(4);
+		ensureWritable(4);
 		bytes().putFloat(v);
 	}
 
 	@Override
 	public void writeInt(final int v) throws IOException {
-		validateLength(4);
+		ensureWritable(4);
 		bytes().putInt(v);
 	}
 
 	@Override
 	public void writeLong(final long v) throws IOException {
-		validateLength(8);
+		ensureWritable(8);
 		bytes().putLong(v);
 	}
 
 	@Override
 	public void writeShort(final int v) throws IOException {
-		validateLength(2);
+		ensureWritable(2);
 		bytes().putShort((short) v);
 	}
 
