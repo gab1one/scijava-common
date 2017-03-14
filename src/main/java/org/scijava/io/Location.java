@@ -57,4 +57,16 @@ public interface Location {
 		return null;
 	}
 
+	/**
+	 * @return the name of the object addressed by this location, or an empty
+	 *         string if it has no name.
+	 */
+	default String getName() {
+		URI uri = getURI();
+		if (uri != null) {
+			return uri.toString();
+		}
+		return "";
+	}
+
 }
