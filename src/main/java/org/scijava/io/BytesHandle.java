@@ -120,9 +120,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public byte readByte() throws IOException {
-		if (offset() + 1 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(1);
 		try {
 			// we need to convert the bytes into the range 0-255
 			return bytes().get();
@@ -134,9 +132,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public char readChar() throws IOException {
-		if (offset() + 2 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(2);
 		try {
 			return bytes().getChar();
 		}
@@ -147,9 +143,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public double readDouble() throws IOException {
-		if (offset() + 8 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(8);
 		try {
 			return bytes().getDouble();
 		}
@@ -160,9 +154,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public float readFloat() throws IOException {
-		if (offset() + 4 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(4);
 		try {
 			return bytes().getFloat();
 		}
@@ -175,9 +167,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 	public void readFully(final byte[] b, final int off, final int len)
 		throws IOException
 	{
-		if (offset() + len > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(len);
 		try {
 			bytes().get(b, off, len);
 		}
@@ -188,9 +178,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public int readInt() throws IOException {
-		if (offset() + 4 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(4);
 		try {
 			return bytes().getInt();
 		}
@@ -201,9 +189,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public long readLong() throws IOException {
-		if (offset() + 8 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(8);
 		try {
 			return bytes().getLong();
 		}
@@ -214,9 +200,7 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 
 	@Override
 	public short readShort() throws IOException {
-		if (offset() + 2 > length()) {
-			throw new EOFException();
-		}
+		ensureReadable(2);
 		try {
 			return bytes().getShort();
 		}
@@ -233,11 +217,6 @@ public class BytesHandle extends AbstractDataHandle<BytesLocation> {
 	{
 		ensureWritable(len);
 		bytes().put(b, off, len);
-	}
-
-	@Override
-	public void write(final int b) throws IOException {
-		writeByte(b);
 	}
 
 	@Override
