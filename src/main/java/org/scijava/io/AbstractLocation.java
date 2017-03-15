@@ -37,5 +37,26 @@ package org.scijava.io;
  * @author Curtis Rueden
  */
 public abstract class AbstractLocation implements Location {
-	// NB: No implementation needed.
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getURI() == null) ? 0 : getURI().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		AbstractLocation other = (AbstractLocation) obj;
+		if (getURI() == null) {
+			if (other.getURI() != null) return false;
+		}
+		else if (!getURI().equals(other.getURI())) return false;
+		return true;
+	}
+
 }
