@@ -60,6 +60,14 @@ public class BytesLocation extends AbstractLocation {
 		this(ByteBuffer.wrap(bytes, offset, length));
 	}
 
+	/**
+	 * Creates a {@link BytesLocation} backed by a {@link ByteBuffer} with the
+	 * specified initial capacity.
+	 */
+	public BytesLocation(final int initialCapacity) {
+		this(ByteBuffer.allocate(initialCapacity));
+	}
+
 	// -- ByteArrayLocation methods --
 
 	/** Gets the associated {@link ByteBuffer}. */
