@@ -29,9 +29,12 @@
  * #L%
  */
 
-package org.scijava.io;
+package org.scijava.io.handles;
 
 import java.nio.ByteBuffer;
+
+import org.scijava.io.AbstractLocation;
+import org.scijava.io.Location;
 
 /**
  * {@link Location} backed by a {@link ByteBuffer}.

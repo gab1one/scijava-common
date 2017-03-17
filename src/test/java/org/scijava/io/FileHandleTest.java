@@ -35,6 +35,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.scijava.io.handles.FileHandle;
+import org.scijava.io.handles.FileLocation;
+
 /**
  * Tests {@link FileHandle}.
  *

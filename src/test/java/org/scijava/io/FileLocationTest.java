@@ -36,6 +36,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 
 import org.junit.Test;
+import org.scijava.io.handles.FileLocation;
 
 /**
  * Tests {@link FileLocation}.
