@@ -31,6 +31,7 @@
 
 package org.scijava.io;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import java.net.MalformedURLException;
@@ -49,9 +50,19 @@ public class URLLocationTest {
 	/** Tests {@link URLLocation#URLLocation(URL)}. */
 	@Test
 	public void testURL() throws MalformedURLException {
-		final URL url = new URL("file:///non/existent/url");
+		final URL url = new URL("http:///non/existent/url");
 		final URLLocation loc = new URLLocation(url);
 		assertSame(url, loc.getURL());
 	}
 
+	/** Tests {@link URLLocation#URLLocation(String)}. */
+	@Test
+	public void testURLString() throws MalformedURLException {
+		String urlString = "http:///non/existent/url";
+		final URL url = new URL(urlString);
+		final URLLocation loc = new URLLocation(url);
+		assertEquals(url, loc.getURL());
+	}
+	
+	
 }
