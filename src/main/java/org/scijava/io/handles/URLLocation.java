@@ -31,6 +31,7 @@
 
 package org.scijava.io.handles;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -42,14 +43,36 @@ import org.scijava.io.Location;
  * {@link Location} backed by a {@link URL}.
  *
  * @author Curtis Rueden
+ * @deprecated Use {@code HTTPHandle} from {@code scijava-handles-http} instead.
  */
+@Deprecated
 public class URLLocation extends AbstractLocation {
 
 	/** The URL backing this location. */
 	private final URL url;
 
+	private static final String[] SUPPORTED_PROTOCOLS = { "http", "https" };
+
 	public URLLocation(final URL url) {
-		this.url = url;
+		if (supported(url.getProtocol())) {
+			this.url = url;
+		}
+		else {
+			throw new IllegalArgumentException("Protocol not supported!");
+		}
+	}
+
+	public URLLocation(String url) throws MalformedURLException {
+		this(new URL(url));
+	}
+
+	private boolean supported(String protocol) {
+		for (String p : SUPPORTED_PROTOCOLS) {
+			if (p.equals(protocol)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// -- URLLocation methods --
