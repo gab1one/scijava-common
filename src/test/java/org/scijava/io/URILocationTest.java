@@ -39,6 +39,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 import org.junit.Test;
+import org.scijava.io.handles.URILocation;
 
 /**
  * Tests {@link URILocation}.

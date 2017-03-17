@@ -29,7 +29,7 @@
  * #L%
  */
 
-package org.scijava.io;
+package org.scijava.io.handles;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -38,6 +38,8 @@ import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.scijava.io.AbstractLocation;
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 

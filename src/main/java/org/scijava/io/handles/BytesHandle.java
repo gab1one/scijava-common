@@ -29,7 +29,7 @@
  * #L%
  */
 
-package org.scijava.io;
+package org.scijava.io.handles;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -37,6 +37,8 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import org.scijava.io.AbstractDataHandle;
+import org.scijava.io.DataHandle;
 import org.scijava.plugin.Plugin;
 
 /**

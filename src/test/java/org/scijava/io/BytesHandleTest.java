@@ -34,6 +34,9 @@ package org.scijava.io;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.scijava.io.handles.BytesHandle;
+import org.scijava.io.handles.BytesLocation;
+
 /**
  * Tests {@link BytesHandle}.
  *

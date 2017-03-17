@@ -29,11 +29,13 @@
  * #L%
  */
 
-package org.scijava.io;
+package org.scijava.io.handles;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import org.scijava.io.AbstractDataHandle;
+import org.scijava.io.DataHandle;
 import org.scijava.plugin.Plugin;
 
 /**

@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.junit.Test;
+import org.scijava.io.handles.URLLocation;
 
 /**
  * Tests {@link URLLocation}.
