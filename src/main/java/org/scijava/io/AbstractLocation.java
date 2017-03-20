@@ -31,6 +31,10 @@
 
 package org.scijava.io;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Abstract base class for {@link Location} implementations.
  * 
@@ -59,4 +63,18 @@ public abstract class AbstractLocation implements Location {
 		return true;
 	}
 
+	@Override
+	public boolean isBrowsable() {
+		return false;
+	}
+
+	@Override
+	public Location getParent() throws IOException {
+		return null;
+	}
+
+	@Override
+	public Set<Location> getChildren() throws IOException {
+		return Collections.emptySet();
+	}
 }

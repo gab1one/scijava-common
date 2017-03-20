@@ -31,14 +31,17 @@
 
 package org.scijava.io;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * A <em>location</em> is a data descriptor, such as a file on disk, a remote
  * URL, or a database connection.
  * <p>
- * Analogous to a <a
- * href="https://en.wikipedia.org/wiki/Uniform_resource_identifier">uniform
+ * Analogous to a
+ * <a href="https://en.wikipedia.org/wiki/Uniform_resource_identifier">uniform
  * resource identifier</a> ({@link URI}), a location identifies <em>where</em>
  * the data resides, without necessarily specifying <em>how</em> to access that
  * data. The {@link DataHandle} interface defines a plugin that knows how to
@@ -69,4 +72,24 @@ public interface Location {
 		return "";
 	}
 
+	/**
+	 * @return whether this location is browsable, meaning the methods
+	 *         {@link #getParent()} or {@link #getChildren()} can be called.
+	 */
+	boolean isBrowsable();
+
+	/**
+	 * @return the parent {@link Location} of this {@link Location}, or
+	 *         <code>null</code> if this {@link Location} has no parent.
+	 * @throws IOException if the parent could not be located.
+	 */
+	Location getParent() throws IOException;
+
+	/**
+	 * @return the children of this {@link Location}, or
+	 *         {@link Collections#EMPTY_SET} if this {@link Location} has no
+	 *         children.
+	 * @throws IOException if the children could not be located.
+	 */
+	Set<Location> getChildren() throws IOException;
 }

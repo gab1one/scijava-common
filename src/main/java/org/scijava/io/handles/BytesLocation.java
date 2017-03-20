@@ -31,7 +31,10 @@
 
 package org.scijava.io.handles;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Collections;
+import java.util.Set;
 
 import org.scijava.io.AbstractLocation;
 import org.scijava.io.Location;
