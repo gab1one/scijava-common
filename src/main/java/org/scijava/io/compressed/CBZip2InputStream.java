@@ -53,10 +53,11 @@
 
 package org.scijava.io.compressed;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.scijava.io.DataHandle;
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 
 /**
@@ -110,27 +111,27 @@ public class CBZip2InputStream extends InputStream {
 		808, 206, 184, 943, 795, 384, 383, 461, 404, 758, 839, 887, 715, 67, 618,
 		276, 204, 918, 873, 777, 604, 560, 951, 160, 578, 722, 79, 804, 96, 409,
 		713, 940, 652, 934, 970, 447, 318, 353, 859, 672, 112, 785, 645, 863, 803,
-		350, 139, 93, 354, 99, 820, 908, 609, 772, 154, 274, 580, 184, 79, 626,
-		630, 742, 653, 282, 762, 623, 680, 81, 927, 626, 789, 125, 411, 521, 938,
-		300, 821, 78, 343, 175, 128, 250, 170, 774, 972, 275, 999, 639, 495, 78,
-		352, 126, 857, 956, 358, 619, 580, 124, 737, 594, 701, 612, 669, 112, 134,
-		694, 363, 992, 809, 743, 168, 974, 944, 375, 748, 52, 600, 747, 642, 182,
-		862, 81, 344, 805, 988, 739, 511, 655, 814, 334, 249, 515, 897, 955, 664,
-		981, 649, 113, 974, 459, 893, 228, 433, 837, 553, 268, 926, 240, 102, 654,
-		459, 51, 686, 754, 806, 760, 493, 403, 415, 394, 687, 700, 946, 670, 656,
-		610, 738, 392, 760, 799, 887, 653, 978, 321, 576, 617, 626, 502, 894, 679,
-		243, 440, 680, 879, 194, 572, 640, 724, 926, 56, 204, 700, 707, 151, 457,
-		449, 797, 195, 791, 558, 945, 679, 297, 59, 87, 824, 713, 663, 412, 693,
-		342, 606, 134, 108, 571, 364, 631, 212, 174, 643, 304, 329, 343, 97, 430,
-		751, 497, 314, 983, 374, 822, 928, 140, 206, 73, 263, 980, 736, 876, 478,
-		430, 305, 170, 514, 364, 692, 829, 82, 855, 953, 676, 246, 369, 970, 294,
-		750, 807, 827, 150, 790, 288, 923, 804, 378, 215, 828, 592, 281, 565, 555,
-		710, 82, 896, 831, 547, 261, 524, 462, 293, 465, 502, 56, 661, 821, 976,
-		991, 658, 869, 905, 758, 745, 193, 768, 550, 608, 933, 378, 286, 215, 979,
-		792, 961, 61, 688, 793, 644, 986, 403, 106, 366, 905, 644, 372, 567, 466,
-		434, 645, 210, 389, 550, 919, 135, 780, 773, 635, 389, 707, 100, 626, 958,
-		165, 504, 920, 176, 193, 713, 857, 265, 203, 50, 668, 108, 645, 990, 626,
-		197, 510, 357, 358, 850, 858, 364, 936, 638 };
+		350, 139, 93, 354, 99, 820, 908, 609, 772, 154, 274, 580, 184, 79, 626, 630,
+		742, 653, 282, 762, 623, 680, 81, 927, 626, 789, 125, 411, 521, 938, 300,
+		821, 78, 343, 175, 128, 250, 170, 774, 972, 275, 999, 639, 495, 78, 352,
+		126, 857, 956, 358, 619, 580, 124, 737, 594, 701, 612, 669, 112, 134, 694,
+		363, 992, 809, 743, 168, 974, 944, 375, 748, 52, 600, 747, 642, 182, 862,
+		81, 344, 805, 988, 739, 511, 655, 814, 334, 249, 515, 897, 955, 664, 981,
+		649, 113, 974, 459, 893, 228, 433, 837, 553, 268, 926, 240, 102, 654, 459,
+		51, 686, 754, 806, 760, 493, 403, 415, 394, 687, 700, 946, 670, 656, 610,
+		738, 392, 760, 799, 887, 653, 978, 321, 576, 617, 626, 502, 894, 679, 243,
+		440, 680, 879, 194, 572, 640, 724, 926, 56, 204, 700, 707, 151, 457, 449,
+		797, 195, 791, 558, 945, 679, 297, 59, 87, 824, 713, 663, 412, 693, 342,
+		606, 134, 108, 571, 364, 631, 212, 174, 643, 304, 329, 343, 97, 430, 751,
+		497, 314, 983, 374, 822, 928, 140, 206, 73, 263, 980, 736, 876, 478, 430,
+		305, 170, 514, 364, 692, 829, 82, 855, 953, 676, 246, 369, 970, 294, 750,
+		807, 827, 150, 790, 288, 923, 804, 378, 215, 828, 592, 281, 565, 555, 710,
+		82, 896, 831, 547, 261, 524, 462, 293, 465, 502, 56, 661, 821, 976, 991,
+		658, 869, 905, 758, 745, 193, 768, 550, 608, 933, 378, 286, 215, 979, 792,
+		961, 61, 688, 793, 644, 986, 403, 106, 366, 905, 644, 372, 567, 466, 434,
+		645, 210, 389, 550, 919, 135, 780, 773, 635, 389, 707, 100, 626, 958, 165,
+		504, 920, 176, 193, 713, 857, 265, 203, 50, 668, 108, 645, 990, 626, 197,
+		510, 357, 358, 850, 858, 364, 936, 638 };
 
 	// -- Helper methods --
 
@@ -183,7 +184,7 @@ public class CBZip2InputStream extends InputStream {
 
 	private int nInUse;
 
-	private InputStream in;
+	private DataHandle<Location> in;
 
 	private final LogService log;
 
@@ -250,7 +251,7 @@ public class CBZip2InputStream extends InputStream {
 	 *           occurs.
 	 * @throws NullPointerException if <tt>in == null</tt>
 	 */
-	public CBZip2InputStream(final InputStream in, final LogService log)
+	public CBZip2InputStream(final DataHandle<Location> in, final LogService log)
 		throws IOException
 	{
 		super();
@@ -397,15 +398,15 @@ public class CBZip2InputStream extends InputStream {
 		if (this.storedBlockCRC != this.computedBlockCRC) {
 			// make next blocks readable without error
 			// (repair feature, not yet documented, not tested)
-			this.computedCombinedCRC =
-				(this.storedCombinedCRC << 1) | (this.storedCombinedCRC >>> 31);
+			this.computedCombinedCRC = (this.storedCombinedCRC << 1) |
+				(this.storedCombinedCRC >>> 31);
 			this.computedCombinedCRC ^= this.storedBlockCRC;
 
 			reportCRCError();
 		}
 
-		this.computedCombinedCRC =
-			(this.computedCombinedCRC << 1) | (this.computedCombinedCRC >>> 31);
+		this.computedCombinedCRC = (this.computedCombinedCRC << 1) |
+			(this.computedCombinedCRC >>> 31);
 		this.computedCombinedCRC ^= this.computedBlockCRC;
 	}
 
@@ -421,7 +422,7 @@ public class CBZip2InputStream extends InputStream {
 
 	@Override
 	public void close() throws IOException {
-		final InputStream inShadow = this.in;
+		final DataHandle<Location> inShadow = this.in;
 		if (inShadow != null) {
 			try {
 				if (inShadow != System.in) inShadow.close();
@@ -433,12 +434,26 @@ public class CBZip2InputStream extends InputStream {
 		}
 	}
 
+	/**
+	 * @param closeHandle if the contained handle should be closed as well
+	 * @throws IOException
+	 */
+	public void close(boolean closeHandle) throws IOException {
+		if (closeHandle) {
+			close();
+		}
+		else {
+			this.data = null;
+			this.in = null;
+		}
+	}
+
 	private int bsR(final int n) throws IOException {
 		int bsLiveShadow = this.bsLive;
 		int bsBuffShadow = this.bsBuff;
 
 		if (bsLiveShadow < n) {
-			final InputStream inShadow = this.in;
+			final DataHandle<Location> inShadow = this.in;
 			do {
 				final int thech = inShadow.read();
 
@@ -611,7 +626,7 @@ public class CBZip2InputStream extends InputStream {
 		this.origPtr = bsR(24);
 		recvDecodingTables();
 
-		final InputStream inShadow = this.in;
+		final DataHandle<Location> inShadow = this.in;
 		final Data dataShadow = this.data;
 		final byte[] ll8 = dataShadow.ll8;
 		final int[] unzftab = dataShadow.unzftab;
@@ -778,7 +793,7 @@ public class CBZip2InputStream extends InputStream {
 	}
 
 	private int getAndMoveToFrontDecode0(final int groupNo) throws IOException {
-		final InputStream inShadow = this.in;
+		final DataHandle<Location> inShadow = this.in;
 		final Data dataShadow = this.data;
 		final int zt = dataShadow.selector[groupNo] & 0xff;
 		final int[] limitZT = dataShadow.limit[zt];
