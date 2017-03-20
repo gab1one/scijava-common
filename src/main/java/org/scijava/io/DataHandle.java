@@ -38,6 +38,7 @@ import java.io.DataOutput;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UTFDataFormatException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -683,6 +684,15 @@ public interface DataHandle<L extends Location> extends WrapperPlugin<L>,
 		}
 	}
 
+	/**
+	 * Writes the provided string, followed by a newline character
+	 *
+	 * @param string
+	 * @throws IOException
+	 */
+	default void writeLine(final String string) throws IOException {
+		writeBytes(string);
+		writeBytes("\n");
 	}
 
 }
