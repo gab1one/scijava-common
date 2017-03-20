@@ -32,7 +32,12 @@
 package org.scijava.io.handles;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.net.URI;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.scijava.io.AbstractLocation;
 import org.scijava.io.Location;
@@ -78,4 +83,27 @@ public class FileLocation extends AbstractLocation {
 		return file.getName();
 	}
 
+	@Override
+	public boolean isBrowsable() {
+		return true;
+	}
+
+	@Override
+	public Location getParent() throws IOException {
+		return new FileLocation(file.getParentFile());
+	}
+
+	@Override
+	public Set<Location> getChildren() throws IOException {
+		File[] files = file.listFiles();
+		if (files == null) {
+			return Collections.emptySet();
+		}
+
+		Set<Location> out = new HashSet<>(files.length);
+		for (File child : files) {
+			out.add(new FileLocation(child));
+		}
+		return out;
+	}
 }
